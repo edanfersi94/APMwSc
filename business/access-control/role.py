@@ -104,6 +104,19 @@ class clsRole():
 		return(result)
 	
 	#-------------------------------------------------------------------------------
+
+    def modify_idRole(self, idRole, newIdRole):
+        session.query(model.Role).filter(model.Dpt.idrole==idRole).\
+            update({'idrole':(newIdRole)})
+        session.commit()
+        
+    def modify_nameRole(self, nameRole, newNameRole):
+        session.query(model.Role).filter(model.Role.namerole==nameRole).\
+            update({'namerole':(newNameRole)})
+        session.commit()
+	
+	#--------------------------------------------------------------------------------	
+	
 	
 	def delete_role(self, roleId):
 		"""
@@ -140,7 +153,5 @@ result = role1.find_listIdRole()
 for v in result:
 	print(v.id_label)
 # PRUEBA: Eliminar
-#result = role1.find_IdRole(1)
-#role1.delete_role(1)
-#role1.rolling_back_role()
+3
 """

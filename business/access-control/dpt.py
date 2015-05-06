@@ -34,7 +34,86 @@ session = DBSession()
 
 class clsDpt():
 
-	def insert_dpt(self, newIdDpt, newNameDpt):
-		newDpt = model.Dpt(newIdDpt, newNameDpt)
-		session.add(newDpt)
-		session.commit()
+    def insert_dpt(self, newIdDpt, newNameDpt):
+        """
+            @brief Funcion que permite insertar un nuevo departamento en la base de datos.
+            
+            @param newIdDpto: Identificador del departamento a insertar.
+            @param newNameDpto: Nombre del departamento a insertar.
+            
+            @return void
+        """
+        newDpt = model.Dpt(newIdDpt, newNameDpt)
+        session.add(newDpt)
+        session.commit()
+    
+    def find_IdDpt(self, idDpt):
+		"""
+			@brief Funcion que realiza la busqueda del departamento cuyo identificador
+				   sea "idDpt".
+			
+			@param idDpt: Identificador del departamento a buscar.
+			
+			@return subquery con la consulta solicitada.
+		"""
+		
+        result = session.query(model.Dpt).filter(model.Dpt.iddpt==idDpt).all()
+        return(result)
+    
+    def find_nameDpt(self,nameDpt):
+		"""
+			@brief Funcion que realiza la busqueda de los departamentos cuyo identificador
+				   sea "nameDpt".
+			@return subquery con la consulta solicitada.
+		"""
+        result = session.query(model.Dpt).filter(model.Dpt.namedpt==nameDpt).all()
+        return(result)
+    
+    def find_listIdDpt(self):
+		"""
+			@brief Funcion que devuelve los identificadores de los diferentes departamentos
+				   que se encuentran almacenados en la base de datos.
+			
+			@param no admite parametros.
+			
+			@return subquery con la consulta solicitada.
+		"""
+        result = session.query(model.Dpt.iddpt.label('id')).all()
+        return(result)
+    
+    def find_listNameDpt(self):
+        result = session.query(model.Dpt.namedpt.label('name')).all()
+        return(result)
+        
+    def modify_idDpt(self, idDpt, newIdDpt):
+        session.query(model.Dpt).filter(model.Dpt.iddpt==idDpt).\
+            update({'iddpt':(newIdDpt)})
+        session.commit()
+        
+    def modify_nameDpt(self, nameDpt, newNameDpt):
+        session.query(model.Dpt).filter(model.Dpt.namedpt==nameDpt).\
+            update({'namedpt':(newNameDpt)})
+        session.commit()
+    
+    def delete_idDpt(self, idDpt):
+        session.query(model.Dpt).filter(model.Dpt.iddpt==idDpt).delete()
+        session.commit()
+
+        
+dpt1 = clsDpt()
+#dpt1.insert_dpt(1,'dpt1')
+#dpt1.insert_dpt(2,'dpt2')
+#dpt1.insert_dpt(3,'dpt3')
+result = dpt1.find_IdDpt(3)
+for v in result:
+	print(v.namedpt)
+       
+result = dpt1.find_listIdDpt()
+for v in result:
+	print(v.id)
+    
+result = dpt1.find_IdDpt(2)
+#dpt1.delete_idDpt(2)
+#role1.rolling_back_role()
+
+dpt1.modify_idDpt(3, 2)

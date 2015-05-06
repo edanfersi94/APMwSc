@@ -3,12 +3,8 @@ from flask.ext.sqlalchemy import SQLAlchemy
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' + '../..'))
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] =\
-	 'postgresql://BMO@localhost/BMO'
-app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
-db = SQLAlchemy(app)
+ 
+from data import model
 
 class clsRole(db.Model):
 

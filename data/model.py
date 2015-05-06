@@ -17,13 +17,7 @@
 # Librerias a utilizar.
 from flask import Flask, request
 from flask.ext.sqlalchemy import SQLAlchemy
-
-# Configuración de la base de datos.
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] =\
-	 'postgresql://BMO@localhost/BMO'
-app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
-db = SQLAlchemy(app)
+from app import db
 
 #-------------------------------------------------------------------------------
 # Tablas de la base de datos a definir.

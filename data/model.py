@@ -36,7 +36,7 @@ class User(db):
 	__tablename__ = 'user'
 	fullname = Column(String(50), unique = True)
 	username = Column(String(16), primary_key = True)
-	password = Column(String(16), unique = True)
+	password = Column(String(16), nulable = False)
 	email = Column(String(30), unique = True)
 	iddpt = Column(Integer, ForeignKey('dpt.iddpt'), nullable = False)
 	idrole = Column(Integer, ForeignKey('role.idrole'), unique = True)
@@ -56,10 +56,9 @@ class Dpt(db):
 	namedpt = Column(String(50), unique = True)
 	users = relationship('User', backref = 'dpt', cascade="all, delete, delete-orphan")
 
-	def __init__(self, iddpt, namedpt, users):
+	def __init__(self, iddpt, namedpt):
 		self.iddpt = iddpt
 		self.namedpt = namedpt
-		self.users = users
 
 # Tabla Role.
 class Role(db):

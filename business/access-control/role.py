@@ -1,14 +1,21 @@
-from flask import Flask
-from flask.ext.sqlalchemy import SQLAlchemy
-import os
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 import sys
-sys.path.append(os.path.abspath(os.path.dirname(__file__) + '/' + '../..'))
- 
-from data import model
+import os
+sys.path.append('../../data')
+import model
 
-class clsRole(db.Model):
+DBSession = sessionmaker(bind=model.engine)
+session = DBSession()
+
+class clsRole():
 
 	def insert_roles(self, newId, newNamerole):
-		newRole = Role(id = newId, namerole = newNamerole)
-		db.session.add(newRole)
-		db.session.commit()
+		newRole = model.Role(newId, newNamerole)
+		session.add(newRole)
+		session.commit()
+		
+role1 = clsRole()
+role1.insert_roles(1,'departamento1')
+role1.insert_roles(2,'departamento2')
+role1.insert_roles(3,'departamento3')

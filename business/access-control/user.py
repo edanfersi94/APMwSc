@@ -41,7 +41,7 @@ class clsUser():
 
     #-----------------------------------------------------------------------
 
-    def find_fullname(self, fullname)
+    def find_fullname(self, fullname):
         result = session.query(model.User).filter(model.User.fullname==fullname).all()
         return(result)
 

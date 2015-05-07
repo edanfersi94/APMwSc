@@ -78,6 +78,7 @@ engine = create_engine(URL(**settings.DATABASE))
 
 #Se eliminnan las tablas previamente definidas
 db.metadata.drop_all(engine)
+
 # Se crean todas las tablas definidas en el motor antes construidos.
 db.metadata.create_all(engine)
 

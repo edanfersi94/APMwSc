@@ -46,10 +46,15 @@ class clsRole():
 			
 			@return void.
 		"""
-		
-		newRole = model.Role(newIdRole, newNameRole)
-		session.add(newRole)
-		session.commit()
+		if (1 <= len(newNameRole) <= 50):
+			query1 = self.find_IdRole(newIdRole)
+			query2 = self.find_NameRole(newNameRole)
+			if (query1 == [] and query2 == []):
+				newRole = model.Role(newIdRole, newNameRole)
+				session.add(newRole)
+				session.commit()
+				return(True)
+		return(False)
 		
 	#-------------------------------------------------------------------------------
 	
@@ -62,9 +67,10 @@ class clsRole():
 			
 			@return subquery con la consulta solicitada.
 		"""
-		
-		result = session.query(model.Role).filter(model.Role.idrole==idRole).all()
-		return(result)
+		if (type(idRole) == int):
+			result = session.query(model.Role).filter(model.Role.idrole==idRole).all()
+			return(result)
+		return([])
 	
 	#-------------------------------------------------------------------------------
 	def find_NameRole(self, nameRole):
@@ -73,8 +79,10 @@ class clsRole():
 				   sea "nameRole".
 			@return subquery con la consulta solicitada.
 		"""
-		result = session.query(model.Role).filter(model.Role.namerole==nameRole).all()
-		return(result)
+		if (type(nameRole) == str):
+			result = session.query(model.Role).filter(model.Role.namerole==nameRole).all()
+			return(result)
+		return([])
 		
 	#-------------------------------------------------------------------------------
 	
@@ -105,15 +113,15 @@ class clsRole():
 	
 	#-------------------------------------------------------------------------------
 
-    def modify_idRole(self, idRole, newIdRole):
-        session.query(model.Role).filter(model.Dpt.idrole==idRole).\
-            update({'idrole':(newIdRole)})
-        session.commit()
+	def modify_idRole(self, idRole, newIdRole):
+		session.query(model.Role).filter(model.Dpt.idrole==idRole).\
+			update({'idrole':(newIdRole)})
+		session.commit()
         
-    def modify_nameRole(self, nameRole, newNameRole):
-        session.query(model.Role).filter(model.Role.namerole==nameRole).\
-            update({'namerole':(newNameRole)})
-        session.commit()
+	def modify_nameRole(self, nameRole, newNameRole):
+		session.query(model.Role).filter(model.Role.namerole==nameRole).\
+			update({'namerole':(newNameRole)})
+		session.commit()
 	
 	#--------------------------------------------------------------------------------	
 	
@@ -131,24 +139,32 @@ class clsRole():
 
 	#-------------------------------------------------------------------------------
 
-"""
+
 role1 = clsRole()
 # PRUEBA: Insertar.
 
-role1.insert_roles(2,'departamento2')
-role1.insert_roles(3,'departamento3')
+role1.insert_role(1,'role3')
+role1.insert_role(7,'role1')
+role1.insert_role(9,'role2')
 
-
+"""
 #role1.insert_role(1,'departamento1')
 result = role1.find_IdRole(1)
 for v in result:
 	print(v.namerole)
+"""
+"""
 result = role1.find_NameRole("departamento3")
 for v in result:
 	print(v.idrole)
+
+"""
+"""
 result = role1.find_listNameRole()
 for v in result:
-	print(v.name_label)
+	print(v.name)
+"""
+"""
 result = role1.find_listIdRole()
 for v in result:
 	print(v.id_label)

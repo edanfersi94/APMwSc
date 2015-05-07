@@ -36,7 +36,7 @@ class User(db):
 	__tablename__ = 'user'
 	fullname = Column(String(50), unique = True)
 	username = Column(String(16), primary_key = True)
-	password = Column(String(16), nulable = False)
+	password = Column(String(16), nullable = False)
 	email = Column(String(30), unique = True)
 	iddpt = Column(Integer, ForeignKey('dpt.iddpt'), nullable = False)
 	idrole = Column(Integer, ForeignKey('role.idrole'), unique = True)
@@ -76,5 +76,8 @@ class Role(db):
 # Se crea el motor que almacenara los datos en el directorio local.
 engine = create_engine(URL(**settings.DATABASE))	
 
+#Se eliminnan las tablas previamente definidas
+db.metadata.drop_all(engine)
 # Se crean todas las tablas definidas en el motor antes construidos.
 db.metadata.create_all(engine)
+

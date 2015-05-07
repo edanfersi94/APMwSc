@@ -583,7 +583,7 @@ class TestRole(unittest.TestCase):
         self.assertFalse( result )  
         
     # Test 54: El nuevo id para el rol a modificar es None. 
-    def test_55modify_idRoleOldIdExistNewIdNone(self):        
+    def test_54modify_idRoleOldIdExistNewIdNone(self):        
         tempRole = clsRole()
         oldIdRole = 1
         newIdRole = None

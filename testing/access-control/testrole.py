@@ -5,10 +5,11 @@
     Abril - Julio 2015
 
     AUTORES:
+        Nicolas Manan.      Carnet: 06-39883
         Edward Fernandez.   Carnet: 10-11121
-		Nicolas
+		
 
-    DESCRIPCION: 
+    DESCRIPCION: Script que contiene los casos de prueba del modulo "role.py"
 	
 """
 

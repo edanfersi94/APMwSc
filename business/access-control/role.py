@@ -41,20 +41,32 @@ class clsRole():
 		"""
 			@brief Funcion que permite insertar un nuevo rol en la base de datos.
 			
-			@param newIdRole: Identificador del rol a insertar.
+			@param newIdRole  : Identificador del rol a insertar.
 			@param newNameRole: Nombre del rol a insertar.
 			
-			@return void.
+			@return True si se inserto el rol dado. De lo contrario False.
 		"""
-		if (1 <= len(newNameRole) <= 50):
-			query1 = self.find_IdRole(newIdRole)
-			query2 = self.find_NameRole(newNameRole)
-			if (query1 == [] and query2 == []):
-				newRole = model.Role(newIdRole, newNameRole)
-				session.add(newRole)
-				session.commit()
-				return(True)
-		return(False)
+		
+		# Booleanos que indican si el tipo es el correcto.
+		nameIsStr = type(newNameRole) == str
+		idIsInt = type(newIdRole) == int
+	
+		if ( nameIsStr and  idIsInt ):
+			# Booleanos que indican si cumplen con los limites.
+			nameLenValid = 1 <= len(newNameRole) <= 50
+			idIsPositive = newIdRole > 0
+		
+			if (nameLenValid and idIsPositive):
+				query1 = self.find_IdRole(newIdRole)
+				query2 = self.find_NameRole(newNameRole)
+				
+				if ( (query1 == []) and (query2 == []) ):	
+					newRole = model.Role(newIdRole, newNameRole)
+					session.add(newRole)
+					session.commit()
+					return( True )
+		
+		return( False )
 		
 	#-------------------------------------------------------------------------------
 	
@@ -65,24 +77,35 @@ class clsRole():
 			
 			@param idRole: Identificador del rol a buscar.
 			
-			@return subquery con la consulta solicitada.
+			@return lista que contiene las tuplas obtenidas del subquery. De lo 
+					contrario retorna la lista vacia.
 		"""
-		if (type(idRole) == int):
+		
+		idIsInt = type(idRole) == int
+		
+		if ( idIsInt ):
 			result = session.query(model.Role).filter(model.Role.idrole==idRole).all()
-			return(result)
-		return([])
+			return( result )
+		return( [] )
 	
 	#-------------------------------------------------------------------------------
 	def find_NameRole(self, nameRole):
 		"""
 			@brief Funcion que realiza la busqueda de los roles cuyo identificador
 				   sea "nameRole".
-			@return subquery con la consulta solicitada.
+				   
+			@param nameRole: Nombre del rol a buscar.
+			
+			@return lista que contiene las tuplas obtenidas del subquery. De lo 
+					contrario retorna la lista vacia.
 		"""
-		if (type(nameRole) == str):
+		
+		nameIsStr = type(nameRole) == str
+		
+		if ( nameIsStr ):
 			result = session.query(model.Role).filter(model.Role.namerole==nameRole).all()
-			return(result)
-		return([])
+			return( result )
+		return( [] )
 		
 	#-------------------------------------------------------------------------------
 	
@@ -95,8 +118,9 @@ class clsRole():
 			
 			@return subquery con la consulta solicitada.
 		"""
+		
 		result = session.query(model.Role.idrole.label('id')).all()
-		return(result)
+		return( result )
 		
 	#-------------------------------------------------------------------------------
 	def find_listNameRole(self):
@@ -108,66 +132,95 @@ class clsRole():
 			
 			@return subquery con la consulta solicitada.
 		"""
+		
 		result = session.query(model.Role.namerole.label('name')).all()
-		return(result)
+		return( result )
 	
 	#-------------------------------------------------------------------------------
 
 	def modify_idRole(self, idRole, newIdRole):
-		session.query(model.Role).filter(model.Dpt.idrole==idRole).\
-			update({'idrole':(newIdRole)})
-		session.commit()
-        
-	def modify_nameRole(self, nameRole, newNameRole):
-		session.query(model.Role).filter(model.Role.namerole==nameRole).\
-			update({'namerole':(newNameRole)})
-		session.commit()
+		"""
+			@brief Funcion que modifica el id de un rol dado por "newIdRole".
+			
+			@param idRole	: id del rol a modificar.
+			@param newIdRole: nuevo id para el rol dado.
+			
+			@return True si se modifico el rol dado. De lo contrario False.
+		"""
+		
+		# Booleanos que indican si el tipo es el correcto.
+		newIdIsInt = type(newIdRole) == int
+		oldIdIsInt = type(idRole) == int
+		
+		if ( newIdIsInt and oldIdIsInt ):
+			# Booleanos que indican si cumplen con los limites.
+			newIdIsPositive = newIdRole > 0
+			oldIdIsPositive = idRole > 0
+			
+			if ( newIdIsPositive and  oldIdIsPositive ):
+				query1 = self.find_IdRole(idRole)
+				query2 = self.find_IdRole(newIdRole)
+				
+				if (( query1 != [] ) and ( query2 == [])):
+					session.query(model.Role).filter(model.Role.idrole==idRole).\
+						update({'idrole':(newIdRole)})
+					session.commit()
+					return( True )
+		
+		return( False )
+
+	#--------------------------------------------------------------------------------
+
+	def modify_nameRole(self, idRole, newNameRole):
+		"""
+			@brief Funcion que modifica el nombre de un rol dado por "newNameRole".
+			
+			@param idRole	  : id del rol a modificar.
+			@param newNameRole: nuevo nombre para el rol dado.
+			
+			@return True si se modifico el rol dado. De lo contrario False.
+		"""
+		
+		# Booleanos que indican si el tipo es el correcto.
+		nameIsStr = type(newNameRole) == str
+		idIsInt = type(idRole) == int
+		
+		if ( nameIsStr and  idIsInt ):
+			# Booleanos que indican si se cumplen los limites.
+			nameLenValid = 1 <= len(newNameRole) <= 50
+			idIsPositive = idRole > 0
+			
+			if ( nameLenValid and idIsPositive ):
+				query1 = self.find_IdRole(idRole)
+				query2 = self.find_NameRole(newNameRole)
+				
+				if (( query1 != [] ) and ( query2 == [])):
+					session.query(model.Role).filter(model.Role.idrole==idRole).\
+						update({'namerole':(newNameRole)})
+					session.commit()
+					return( True )
+					
+		return( False )
 	
 	#--------------------------------------------------------------------------------	
 	
-	
-	def delete_role(self, roleId):
+	def delete_role(self, idRole):
 		"""
-			@brief Funcion que elimina el rol cuyo identificador sea "roleId".
+			@brief Funcion que elimina el rol cuyo identificador sea "idRole".
 			
-			@param roleId: Identificador del rol a eliminar.
+			@param idRole: Identificador del rol a eliminar.
 			
-			@return void.
+			@return True si elimina el rol dado. De lo contrario False.
 		"""
-		session.query(model.Role).filter(model.Role.idrole==roleId).delete()
-		session.commit()
+		
+		idIsInt = type(idRole) == int 
+		
+		if ( idIsInt ):
+			query = self.find_IdRole( idRole )
+			if ( query != [] ):
+				session.query(model.Role).filter(model.Role.idrole==idRole).delete()
+				session.commit()
+				return( True )
+		return( False )
 
 	#-------------------------------------------------------------------------------
-
-
-role1 = clsRole()
-# PRUEBA: Insertar.
-
-role1.insert_role(1,'role3')
-role1.insert_role(7,'role1')
-role1.insert_role(9,'role2')
-
-"""
-#role1.insert_role(1,'departamento1')
-result = role1.find_IdRole(1)
-for v in result:
-	print(v.namerole)
-"""
-"""
-result = role1.find_NameRole("departamento3")
-for v in result:
-	print(v.idrole)
-
-"""
-"""
-result = role1.find_listNameRole()
-for v in result:
-	print(v.name)
-"""
-"""
-result = role1.find_listIdRole()
-for v in result:
-	print(v.id_label)
-# PRUEBA: Eliminar
-3
-"""

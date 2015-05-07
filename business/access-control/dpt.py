@@ -35,49 +35,31 @@ session = DBSession()
 class clsDpt():
 
     def insert_dpt(self, newIdDpt, newNameDpt):
-        """
-            @brief Funcion que permite insertar un nuevo departamento en la base de datos.
-            
-            @param newIdDpto: Identificador del departamento a insertar.
-            @param newNameDpto: Nombre del departamento a insertar.
-            
-            @return void
-        """
-        newDpt = model.Dpt(newIdDpt, newNameDpt)
-        session.add(newDpt)
-        session.commit()
+
+        query = self.find_idDpt(newIdDpt)
+        query1 = self.find_nameDpt(newNameDpt)
+        if (query == [] and query1 == [] ):
+            newDpt = model.Dpt(newIdDpt, newNameDpt)
+            session.add(newDpt)
+            session.commit()
+            return True
+        return False
     
-    def find_IdDpt(self, idDpt):
-		"""
-			@brief Funcion que realiza la busqueda del departamento cuyo identificador
-				   sea "idDpt".
-			
-			@param idDpt: Identificador del departamento a buscar.
-			
-			@return subquery con la consulta solicitada.
-		"""
-		
-        result = session.query(model.Dpt).filter(model.Dpt.iddpt==idDpt).all()
-        return(result)
+    def find_idDpt(self, idDpt):
+
+        if(type(idDpt) == int):
+            result = session.query(model.Dpt).filter(model.Dpt.iddpt==idDpt).all()
+            return(result)
+        return([])
     
     def find_nameDpt(self,nameDpt):
-		"""
-			@brief Funcion que realiza la busqueda de los departamentos cuyo identificador
-				   sea "nameDpt".
-			@return subquery con la consulta solicitada.
-		"""
-        result = session.query(model.Dpt).filter(model.Dpt.namedpt==nameDpt).all()
-        return(result)
+        if(type(nameDpt) == str):
+            result = session.query(model.Dpt).filter(model.Dpt.namedpt==nameDpt).all()
+            return(result)
+        return([])
     
     def find_listIdDpt(self):
-		"""
-			@brief Funcion que devuelve los identificadores de los diferentes departamentos
-				   que se encuentran almacenados en la base de datos.
-			
-			@param no admite parametros.
-			
-			@return subquery con la consulta solicitada.
-		"""
+
         result = session.query(model.Dpt.iddpt.label('id')).all()
         return(result)
     
@@ -104,7 +86,7 @@ dpt1 = clsDpt()
 #dpt1.insert_dpt(1,'dpt1')
 #dpt1.insert_dpt(2,'dpt2')
 #dpt1.insert_dpt(3,'dpt3')
-result = dpt1.find_IdDpt(3)
+result = dpt1.find_idDpt(3)
 for v in result:
 	print(v.namedpt)
        
@@ -112,7 +94,7 @@ result = dpt1.find_listIdDpt()
 for v in result:
 	print(v.id)
     
-result = dpt1.find_IdDpt(2)
+result = dpt1.find_idDpt(2)
 #dpt1.delete_idDpt(2)
 #role1.rolling_back_role()
 

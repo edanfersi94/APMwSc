@@ -9,7 +9,7 @@
         Edward Fernandez.   Carnet: 10-11121
 
 	DESCRIPCION: Script que contiene los metodos requeridos para trabajar con la tabla
-			 "Role" de la base de datos dada.
+			     "Role" de la base de datos dada.
 	
 """
 
@@ -117,7 +117,7 @@ class clsRole():
 			
 			@param no admite parametros.
 			
-			@return subquery con la consulta solicitada.
+			@return lista con la consulta solicitada.
 		"""
 		
 		result = session.query(model.Role.idrole.label('id')).all()
@@ -131,7 +131,7 @@ class clsRole():
 			
 			@param no admite parametros.
 			
-			@return subquery con la consulta solicitada.
+			@return lista con la consulta solicitada.
 		"""
 		
 		result = session.query(model.Role.namerole.label('name')).all()

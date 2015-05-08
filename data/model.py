@@ -34,7 +34,7 @@ db = declarative_base()
 # Tabla Usuario.
 class User(db):
 	__tablename__ = 'user'
-	fullname = Column(String(50), unique = True)
+	fullname = Column(String(50), nullable = False)
 	username = Column(String(16), primary_key = True)
 	password = Column(String(16), nullable = False)
 	email = Column(String(30), unique = True)

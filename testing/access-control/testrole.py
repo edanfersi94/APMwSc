@@ -44,11 +44,11 @@ class TestRole(unittest.TestCase):
     # FUNCION BUSCAR.
     
     #.............................................................
-    ## FUNCION Nº1: find_IdRole
+    ## FUNCION Nº1: find_idRole
     
     ### CASOS VALIDOS( Casos Interiores ).
     # Test 2: Buscar el id de un rol que exista. 
-    def test2find_IdRoleExist(self):
+    def test2find_idRoleExist(self):
         # Se inserta un elemento en la base. Dicha insercion se asegura
         # que es valida.
         newIdRole = 1
@@ -59,77 +59,77 @@ class TestRole(unittest.TestCase):
         
         tempRole = clsRole()
         idRole = 1
-        query = tempRole.find_IdRole( idRole )
+        query = tempRole.find_idRole( idRole )
         self.assertIsNotNone( query[0] )
     
     # Test 3: Buscar el id de un rol que no exista.
-    def test3find_IdRoleNotExist(self):
+    def test3find_idRoleNotExist(self):
         tempRole = clsRole()
         idRole = 1000
-        query = tempRole.find_IdRole( idRole )
+        query = tempRole.find_idRole( idRole )
         self.assertEqual(query,[])
     
     ### CASOS INVALIDOS( Casos Malicia )
     # Test 4: El id del rol a buscar es un string.
-    def test4find_IdRoleString(self):
+    def test4find_idRoleString(self):
         tempRole = clsRole()
         idRole = '1'
-        result = tempRole.find_IdRole( idRole )
-        self.assertEqual(result,[])
+        query = tempRole.find_idRole( idRole )
+        self.assertEqual(query,[])
     
-    # Test 5: El id del rol a buscar es un float.
-    def test5find_IdRoleFloat(self):
+    # Test 5: El id del rol a buscar es de tipo float.
+    def test5find_idRoleFloat(self):
         tempRole = clsRole()
         idRole = 1.01
-        result = tempRole.find_IdRole( idRole )
-        self.assertEqual(result,[])  
+        query = tempRole.find_idRole( idRole )
+        self.assertEqual(query,[])  
 
     # Test 6: El id del rol a buscar es nulo.
-    def test6find_IdRoleNone(self):
+    def test6find_idRoleNone(self):
         tempRole = clsRole()
         idRole = None
-        result = tempRole.find_IdRole( idRole )
-        self.assertEqual(result,[])  
+        query = tempRole.find_idRole( idRole )
+        self.assertEqual(query,[])  
     
     #.............................................................
-    ## FUNCION Nº2: find_NameRole
+    ## FUNCION Nº2: find_nameRole
     ### CASOS VALIDOS( Casos Interiores ).
     
     # Test 7: Buscar el nombre de un rol existente.
-    def test7find_NameRoleExist(self):
+    def test7find_nameRoleExist(self):
         tempRole = clsRole()
         nameRole = 'rolprobando1'
-        result = tempRole.find_NameRole( nameRole )
-        self.assertIsNotNone(result[0])
+        query = tempRole.find_nameRole( nameRole )
+        self.assertIsNotNone(query[0])
     
     # Test 8: Buscar el nombre de un rol que no existe.    
-    def test8find_NameRoleNotExist(self):
+    def test8find_nameRoleNotExist(self):
         tempRole = clsRole()
         nameRole = 'role10'
-        result = tempRole.find_NameRole( nameRole )
-        self.assertEqual(result,[])    
+        query = tempRole.find_nameRole( nameRole )
+        self.assertEqual(query,[])    
     
     ### CASOS INVALIDOS( Casos Malicia )
     # Test 9: Buscar un entero como nombre de un rol.
-    def test_9find_NameRoleNumber(self):
+    def test_9find_nameRoleNumber(self):
         tempRole = clsRole()
         nameRole = 1
-        result = tempRole.find_NameRole( nameRole )
-        self.assertEqual(result,[])
+        query = tempRole.find_nameRole( nameRole )
+        self.assertEqual(query,[])
         
     # Test 10: Buscar el string vacio como nombre de un rol.
-    def test_10find_NameRoleEmptyString(self):
+    def test_10find_nameRoleEmptyString(self):
         tempRole = clsRole()
         nameRole = ""
-        result = tempRole.find_NameRole( nameRole )
-        self.assertEqual(result,[])
+        query = tempRole.find_nameRole( nameRole )
+        self.assertEqual(query,[])
         
     # Test 11: Buscar el elemento nulo como nombre de un rol.
-    def test_11find_NameRoleEmpty(self):
+    def test_11find_nameRoleEmpty(self):
         tempRole = clsRole()
         nameRole = None
-        result = tempRole.find_NameRole( nameRole )
-        self.assertEqual(result,[])   
+        query = tempRole.find_nameRole( nameRole )
+        self.assertEqual(query,[])   
         
     #.............................................................
     ## FUNCION Nº3: find_listIdRole
@@ -140,8 +140,8 @@ class TestRole(unittest.TestCase):
     def test_12find_listIdRoleEmptyBase(self):
         session.query(model.Role).delete()  # Se limpia la base de datos.
         tempRole = clsRole()
-        result = tempRole.find_listIdRole()
-        self.assertEqual(result,[])  
+        query = tempRole.find_listIdRole()
+        self.assertEqual(query,[])  
     
     # Test 13: Se buscan los id de los roles que se encuentran en la
     #          base de datos y dicha base tiene una sola tupla.
@@ -155,8 +155,8 @@ class TestRole(unittest.TestCase):
         session.commit()      
                                 
         tempRole = clsRole()
-        result = tempRole.find_listIdRole()
-        self.assertTrue( result[0].id == 50 )  
+        query = tempRole.find_listIdRole()
+        self.assertTrue( query[0].id == 50 )  
     
     # Test 14: Se buscan los id de los roles que se encuentran en la
     #          base de datos y dicha base tiene al menos dos tuplas.
@@ -170,9 +170,9 @@ class TestRole(unittest.TestCase):
         session.commit()      
                                 
         tempRole = clsRole()
-        result = tempRole.find_listIdRole()
+        query = tempRole.find_listIdRole()
         resultEsp = [(50,),(51,)]
-        self.assertTrue( result[:-1] == resultEsp[:-1] )      
+        self.assertTrue( query[:-1] == resultEsp[:-1] )      
 
     #.............................................................
     ## FUNCION Nº4: find_listNamedRole
@@ -183,8 +183,8 @@ class TestRole(unittest.TestCase):
     def test_15find_listNameRoleEmptyBase(self):
         session.query(model.Role).delete()  # Se limpia la base de datos.
         tempRole = clsRole()
-        result = tempRole.find_listNameRole()
-        self.assertEqual(result,[])  
+        query = tempRole.find_listNameRole()
+        self.assertEqual(query,[])  
     
     # Test 16: Se buscan los nombres de los roles que se encuentran en la
     #          base de datos y dicha base tiene una sola tupla.
@@ -198,8 +198,8 @@ class TestRole(unittest.TestCase):
         session.commit()      
                                 
         tempRole = clsRole()
-        result = tempRole.find_listNameRole()
-        self.assertTrue( result[0].name == 'role50' )  
+        query = tempRole.find_listNameRole()
+        self.assertTrue( query[0].name == 'role50' )  
     
     # Test 17: Se buscan los nombres de los roles que se encuentran en la
     #          base de datos y dicha base tiene al menos dos tuplas.
@@ -213,9 +213,9 @@ class TestRole(unittest.TestCase):
         session.commit()      
                                 
         tempRole = clsRole()
-        result = tempRole.find_listNameRole()
+        query = tempRole.find_listNameRole()
         resultEsp = [('role50',),('role51',)]
-        self.assertTrue( result[:-1] == resultEsp[:-1] )   
+        self.assertTrue( query[:-1] == resultEsp[:-1] )   
     
     #.............................................................
     #.-------------------------------------------------------------------.  
@@ -590,7 +590,8 @@ class TestRole(unittest.TestCase):
         newIdRole = None
         result = tempRole.modify_idRole( oldIdRole, newIdRole )
         self.assertFalse( result )   
-        
+    
+    #.............................................................   
     ## FUNCION Nº2: modify_nameRole
 
     ### CASOS VALIDOS( Casos Interiores ).
@@ -640,7 +641,6 @@ class TestRole(unittest.TestCase):
         self.assertFalse( result )  
     
     ### CASOS VALIDOS( Casos Fronteras )
-    
     # Test 59: El id del rol a modificar existe en la base de datos y su
     #          valor es igual a 1. El nuevo nombre se encuentra disponible.
     def test_59modify_nameRoleIdExistIqual1NewNameAvailable(self):
@@ -722,7 +722,7 @@ class TestRole(unittest.TestCase):
         self.assertTrue( result ) 
 
     # Test 66: El id del rol a modificar existe en la base de datos y su valor es
-    #          un numeor muy grande. El nuevo nombre es valido y su longitud es igual a 50.
+    #          un numero muy grande. El nuevo nombre es valido y su longitud es igual a 50.
     def test_66modify_nameRoleIdExistIqualBigNumberNewNameAvailableLen50(self):
         tempRole = clsRole()
         idRole = (2**31)-1
@@ -806,14 +806,14 @@ class TestRole(unittest.TestCase):
         tempRole = clsRole()
         idRoleDelete = (2**31)-1
         result = tempRole.delete_role( idRoleDelete )
-        self.assertTrue(result)
+        self.assertTrue( result )
 
     # Test 76: El rol a eliminar no existe en la base de datos.
-    def test_76Delete_roleExist(self):
+    def test_76Delete_roleNoExist(self):
         tempRole = clsRole()
         idRoleDelete = (2**31)-1
         result = tempRole.delete_role( idRoleDelete )
-        self.assertFalse(result)
+        self.assertFalse( result )
         
     ### CASOS INVALIDOS( Casos Malicia )
     # Test 77: El id del rol a eliminar es un string.
@@ -821,20 +821,20 @@ class TestRole(unittest.TestCase):
         tempRole = clsRole()
         idRoleDelete = '1'
         result = tempRole.delete_role( idRoleDelete )
-        self.assertFalse(result)
+        self.assertFalse( result )
     
-    # Test 78: El id a buscar es un float.
+    # Test 78: El id del role a eliminar es un float.
     def test_78Delete_roleIdFloat(self):
         tempRole = clsRole()
         idRoleDelete = 1.01
         result = tempRole.delete_role( idRoleDelete )
-        self.assertFalse(result) 
+        self.assertFalse( result ) 
 
-    # Test 79: El id a buscar es nulo.
+    # Test 79: El id del role a eliminar es un float.
     def test_79Delete_roleIdNone(self):
         tempRole = clsRole()
         idRoleDelete = None
         result = tempRole.delete_role( idRoleDelete )
-        self.assertFalse(result)
+        self.assertFalse( result )
     
     #.-------------------------------------------------------------------.  

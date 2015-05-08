@@ -57,8 +57,8 @@ class clsRole():
 			idIsPositive = newIdRole > 0
 		
 			if (nameLenValid and idIsPositive):
-				query1 = self.find_IdRole(newIdRole)
-				query2 = self.find_NameRole(newNameRole)
+				query1 = self.find_idRole(newIdRole)
+				query2 = self.find_nameRole(newNameRole)
 				
 				if ( (query1 == []) and (query2 == []) ):	
 					newRole = model.Role(newIdRole, newNameRole)
@@ -70,7 +70,7 @@ class clsRole():
 		
 	#-------------------------------------------------------------------------------
 	
-	def find_IdRole(self, idRole):
+	def find_idRole(self, idRole):
 		"""
 			@brief Funcion que realiza la busqueda del rol cuyo identificador
 				   sea "idRole".
@@ -89,7 +89,7 @@ class clsRole():
 		return( [] )
 	
 	#-------------------------------------------------------------------------------
-	def find_NameRole(self, nameRole):
+	def find_nameRole(self, nameRole):
 		"""
 			@brief Funcion que realiza la busqueda de los roles cuyo identificador
 				   sea "nameRole".
@@ -158,8 +158,8 @@ class clsRole():
 			oldIdIsPositive = idRole > 0
 			
 			if ( newIdIsPositive and  oldIdIsPositive ):
-				query1 = self.find_IdRole(idRole)
-				query2 = self.find_IdRole(newIdRole)
+				query1 = self.find_idRole(idRole)
+				query2 = self.find_idRole(newIdRole)
 				
 				if (( query1 != [] ) and ( query2 == [])):
 					session.query(model.Role).filter(model.Role.idrole==idRole).\
@@ -191,8 +191,8 @@ class clsRole():
 			idIsPositive = idRole > 0
 			
 			if ( nameLenValid and idIsPositive ):
-				query1 = self.find_IdRole(idRole)
-				query2 = self.find_NameRole(newNameRole)
+				query1 = self.find_idRole(idRole)
+				query2 = self.find_nameRole(newNameRole)
 				
 				if (( query1 != [] ) and ( query2 == [])):
 					session.query(model.Role).filter(model.Role.idrole==idRole).\
@@ -216,11 +216,13 @@ class clsRole():
 		idIsInt = type(idRole) == int 
 		
 		if ( idIsInt ):
-			query = self.find_IdRole( idRole )
+			query = self.find_idRole( idRole )
+			
 			if ( query != [] ):
 				session.query(model.Role).filter(model.Role.idrole==idRole).delete()
 				session.commit()
 				return( True )
+		
 		return( False )
 
 	#-------------------------------------------------------------------------------

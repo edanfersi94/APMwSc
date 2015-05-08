@@ -20,10 +20,11 @@
 import os
 import sys
 
-# PATH que permite utilizar al modulo "model.py"
+# PATH que permite utilizar al modulo "role.py"
 sys.path.append('../../business/access-control')
 from role import clsRole, session
 
+# PATH que permite utilizar al modulo "model.py"
 sys.path.append('../../data')
 import model
 

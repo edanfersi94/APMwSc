@@ -5,8 +5,8 @@
     Abril - Julio 2015
 
     AUTORES:
+        Nicolas Manan.      Carnet: 06-39883
         Edward Fernandez.   Carnet: 10-11121
-		Nicolas
 
     DESCRIPCION: Script que contiene la lista de variables globales que permitiran
 				 establecer la conexion con la bases de datos.

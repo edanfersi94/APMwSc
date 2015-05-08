@@ -4,11 +4,12 @@
 	CI-3715 - Ingenieria de Software I (CI-3715)
 	Abril - Julio 2015
 	
-	AUTORES:
-	Edward Fernandez.   Carnet: 10-11121
-	Nicolas
+    AUTORES:
+        Nicolas Manan.      Carnet: 06-39883
+        Edward Fernandez.   Carnet: 10-11121
 	
-	DESCRIPCION: 
+	DESCRIPCION: Script que contiene los metodos requeridos para trabajar con la tabla
+				 "Dpt" de la base de datos dada.
 
 """
 

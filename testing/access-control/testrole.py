@@ -831,11 +831,18 @@ class TestRole(unittest.TestCase):
         result = tempRole.delete_role( idRoleDelete )
         self.assertFalse( result ) 
 
-    # Test 79: El id del role a eliminar es un float.
+    # Test 79: El id del role a eliminar es None.
     def test_79Delete_roleIdNone(self):
         tempRole = clsRole()
         idRoleDelete = None
         result = tempRole.delete_role( idRoleDelete )
         self.assertFalse( result )
+
+    # Test 80: El id del role a eliminar es un numero negativo.
+    def test_80Delete_roleIdNegative(self):
+        tempRole = clsRole()
+        idRoleDelete = -1
+        result = tempRole.delete_role( idRoleDelete )
+        self.assertFalse( result )    
     
     #.-------------------------------------------------------------------.  

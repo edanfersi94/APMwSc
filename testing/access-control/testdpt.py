@@ -837,5 +837,12 @@ class TestDpt(unittest.TestCase):
         idDptDelete = None
         result = tempDpt.delete_dpt( idDptDelete )
         self.assertFalse( result )
+
+    # Test 80: El id del dpt a eliminar es un numero negativo.
+    def test_80Delete_roleIdNegative(self):
+        tempDpt = clsDpt()
+        idDptDelete = -1
+        result = tempDpt.delete_dpt( idDptDelete )
+        self.assertFalse( result )  
     
     #.-------------------------------------------------------------------.  

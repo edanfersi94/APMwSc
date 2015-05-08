@@ -223,37 +223,39 @@ class TestLogin(unittest.TestCase):
     # Test 22: Se genera un hash valido y se compara con el mismo password.   
     def test_22CPHashValidStringValidIqual(self):
         tempLogin = clsLogin()
-        stringProbar = 'HolaSoyOg2@@'
-        stringBueno = 'HolaSoyOg2@@'
-        resultado = tempLogin.encript(stringBueno)
-        boolR = tempLogin.check_password(resultado, stringProbar)
+        stringTest = 'HolaSoyOg2@@'
+        stringGood = 'HolaSoyOg2@@'
+        result = tempLogin.encript(stringGood)
+        boolR = tempLogin.check_password(result, stringTest)
         self.assertTrue(boolR)
         
-    # Test 23: Se genera un hash valido y se compara con otro password invalido   
+    # Test 23: Se genera un hash valido y se compara con un password diferente.   
     def test_23CPHashValidStringValidDifferent(self):
         tempLogin = clsLogin()
-        stringProbar = 'HolaSoyO'
-        stringBueno = 'Holags@22@@'
-        resultado = tempLogin.encript(stringBueno)
-        boolR = tempLogin.check_password(resultado, stringProbar)
+        stringTest = 'HolaSoyO'
+        stringGood = 'Holags@22@@'
+        result = tempLogin.encript(stringGood)
+        boolR = tempLogin.check_password(result, stringTest)
         self.assertFalse(boolR)
         
-    # Test 24: Se genera un hash valido y se compara con otro password valido de 14 caracteres 
+    # Test 24: Se genera un hash valido y se compara con un password valido de 14 
+    #          caracteres. Ambas contraseñas son iguales. 
     def test_24CPHashValidString14Valid(self):
         tempLogin = clsLogin()
-        stringProbar = 'HolaSoyOggs@22'
-        stringBueno =  'HolaSoyOggs@22@@'
-        resultado = tempLogin.encript(stringBueno)
-        boolR = tempLogin.check_password(resultado, stringProbar)
+        stringTest = 'HolaSoyOggs@22'
+        stringGood =  'HolaSoyOggs@22@@'
+        result = tempLogin.encript(stringGood)
+        boolR = tempLogin.check_password(result, stringTest)
         self.assertFalse(boolR)
         
-    # Test 25: Se genera un hash valido y se compara con otro password valido de 9 caracteres 
+    # Test 25: Se genera un hash valido y se compara con un password valido de
+    #          9 caracteres. Ambas contraseñas son iguales. 
     def test_25CPHashValidString9Valid(self):
         tempLogin = clsLogin()
-        stringProbar = 'Proband9@'
-        stringBueno = 'HolaSoyOggs@22@@'
-        resultado = tempLogin.encript(stringBueno)
-        boolR = tempLogin.check_password(resultado, stringProbar)
+        stringTest = 'Proband9@'
+        stringGood = 'HolaSoyOggs@22@@'
+        result = tempLogin.encript(stringGood)
+        boolR = tempLogin.check_password(result, stringTest)
         self.assertFalse(boolR)
     
     ### CASOS VALIDOS( Casos Fronteras ).
@@ -261,73 +263,73 @@ class TestLogin(unittest.TestCase):
     # Test 26: Se genera un hash valido y se compara con otro password valido de 8 caracteres
     def test_26CPHashValidString8Valid(self):
         tempLogin = clsLogin()
-        stringProbar = 'Hoyes2@@'
-        stringBueno = 'HolaSoyOggs@22@@'
-        resultado = tempLogin.encript(stringBueno)
-        boolR = tempLogin.check_password(resultado, stringProbar)
+        stringTest = 'Hoyes2@@'
+        stringGood = 'HolaSoyOggs@22@@'
+        result = tempLogin.encript(stringGood)
+        boolR = tempLogin.check_password(result, stringTest)
         self.assertFalse(boolR)
         
     # Test 27: Se genera un hash valido y se compara con otro password valido de 16 caracteres
     def test_27CPHashValidString16Valid(self):
         tempLogin = clsLogin()
-        stringProbar = 'HolaSoyOggs@22!!'
-        stringBueno = 'HolaSoyOggs@22@@'
-        resultado = tempLogin.encript(stringBueno)
-        boolR = tempLogin.check_password(resultado, stringProbar)
+        stringTest = 'HolaSoyOggs@22!!'
+        stringGood = 'HolaSoyOggs@22@@'
+        result = tempLogin.encript(stringGood)
+        boolR = tempLogin.check_password(result, stringTest)
         self.assertFalse(boolR)
         
     # Test 28: Se genera un hash valido y se compara con otro password invalido de 7 caracteres
     def test_28CPHashValidString7Invalid(self):
         tempLogin = clsLogin()
-        stringProbar = 'Soyn7+@'
-        stringBueno = 'HolaSoyOggs@22@@'
-        resultado = tempLogin.encript(stringBueno)
-        boolR = tempLogin.check_password(resultado, stringProbar)
+        stringTest = 'Soyn7+@'
+        stringGood = 'HolaSoyOggs@22@@'
+        result = tempLogin.encript(stringGood)
+        boolR = tempLogin.check_password(result, stringTest)
         self.assertFalse(boolR)
         
     # Test 29: Se genera un hash valido y se compara con otro password invalido de 17 caracteres    
     def test_29CPHashValidString17Invalid(self):
         tempLogin = clsLogin()
-        stringProbar = 'heChoPor0r1&3Dw4#'
-        stringBueno = 'HolaSoyOggs@22@@'
-        resultado = tempLogin.encript(stringBueno)
-        boolR = tempLogin.check_password(resultado, stringProbar)
+        stringTest = 'heChoPor0r1&3Dw4#'
+        stringGood = 'HolaSoyOggs@22@@'
+        result = tempLogin.encript(stringGood)
+        boolR = tempLogin.check_password(result, stringTest)
         self.assertFalse(boolR)
         
     # Test 30: Se genera un hash valido y se compara con otro password invalido de solos minusculas   
     def test_30CPHashValidStringOnlyLettersInvalid(self):
         tempLogin = clsLogin()
-        stringProbar = 'hoyesjueves'
-        stringBueno = 'HolaSoyOggs@22@@'
-        resultado = tempLogin.encript(stringBueno)
-        boolR = tempLogin.check_password(resultado, stringProbar)
+        stringTest = 'hoyesjueves'
+        stringGood = 'HolaSoyOggs@22@@'
+        result = tempLogin.encript(stringGood)
+        boolR = tempLogin.check_password(result, stringTest)
         self.assertFalse(boolR)
         
     # Test 31: Se genera un hash valido y se compara con otro password invalido de solos minusculas      
     def test_31CPHashValidStringOnlyLettersCInvalid(self):
         tempLogin = clsLogin()
-        stringProbar = 'HOYESJUEVES'
-        stringBueno = 'HolaSoyOggs@22@@'
-        resultado = tempLogin.encript(stringBueno)
-        boolR = tempLogin.check_password(resultado, stringProbar)
+        stringTest = 'HOYESJUEVES'
+        stringGood = 'HolaSoyOggs@22@@'
+        result = tempLogin.encript(stringGood)
+        boolR = tempLogin.check_password(result, stringTest)
         self.assertFalse(boolR)
         
     # Test 32: Se genera un hash valido y se compara con otro password invalido de solos numeros     
     def test_32CPHashValidStringOnlyNumbersInvalid(self):
         tempLogin = clsLogin()
-        stringProbar = '1234567890'
-        stringBueno = 'HolaSoyOggs@22@@'
-        resultado = tempLogin.encript(stringBueno)
-        boolR = tempLogin.check_password(resultado, stringProbar)
+        stringTest = '1234567890'
+        stringGood = 'HolaSoyOggs@22@@'
+        result = tempLogin.encript(stringGood)
+        boolR = tempLogin.check_password(result, stringTest)
         self.assertFalse(boolR)
         
     # Test 33: Se genera un hash valido y se compara con otro password invalido de solos caracteres especiales
     def test_33CPHashValidStringOnlyCharactersInvalid(self):
         tempLogin = clsLogin()
-        stringProbar = '+@#$%&%&#'
-        stringBueno = 'HolaSoyOggs@22@@'
-        resultado = tempLogin.encript(stringBueno)
-        boolR = tempLogin.check_password(resultado, stringProbar)
+        stringTest = '+@#$%&%&#'
+        stringGood = 'HolaSoyOggs@22@@'
+        result = tempLogin.encript(stringGood)
+        boolR = tempLogin.check_password(result, stringTest)
         self.assertFalse(boolR)
     
     ### CASOS VALIDOS( Casos Esquinas ).
@@ -335,55 +337,55 @@ class TestLogin(unittest.TestCase):
     # Test 34: Se genera un hash valido y se compara con otro password invalido de un string vacio 
     def test_34CPHashValidStringEmptyInvalid(self):
         tempLogin =  clsLogin()
-        stringProbar = ''
-        stringBueno = 'HolaSoyOggs@22@@'
-        resultado = tempLogin.encript(stringBueno)
-        boolR = tempLogin.check_password(resultado, stringProbar)
+        stringTest = ''
+        stringGood = 'HolaSoyOggs@22@@'
+        result = tempLogin.encript(stringGood)
+        boolR = tempLogin.check_password(result, stringTest)
         self.assertFalse(boolR)
         
     # Test 35: Se genera un hash valido y se compara con otro password invalido de solos numeros y caracteres especiales
     def test_35CPHashValidStringSCNumberInvalid(self):
         tempLogin = clsLogin()
-        stringProbar = '@@@#&%123'
-        stringBueno = 'HolaSoyOggs@22@@'
-        resultado = tempLogin.encript(stringBueno)
-        boolR = tempLogin.check_password(resultado, stringProbar)
+        stringTest = '@@@#&%123'
+        stringGood = 'HolaSoyOggs@22@@'
+        result = tempLogin.encript(stringGood)
+        boolR = tempLogin.check_password(result, stringTest)
         self.assertFalse(boolR)
         
     # Test 36: Se genera un hash valido y se compara con otro password invalido de solos numeros y caracteres especiales    
     def test_36CPHashValidStringCLNumberInvalid(self):
         tempLogin = clsLogin()
-        stringProbar = 'Aqui3st4mos'
-        stringBueno = 'HolaSoyOggs@22@@'
-        resultado = tempLogin.encript(stringBueno)
-        boolR = tempLogin.check_password(resultado, stringProbar)
+        stringTest = 'Aqui3st4mos'
+        stringGood = 'HolaSoyOggs@22@@'
+        result = tempLogin.encript(stringGood)
+        boolR = tempLogin.check_password(result, stringTest)
         self.assertFalse(boolR)
         
     # Test 37: Se genera un hash valido y se compara con otro password invalido de solos caracteres especiales y letras   
     def test_37CPHashValidStringCLLettersInvalid(self):
         tempLogin = clsLogin() 
-        stringProbar = 'CasoPrueba#&'
-        stringBueno = 'HolaSoyOggs@22@@'
-        resultado = tempLogin.encript(stringBueno)
-        boolR = tempLogin.check_password(resultado, stringProbar)
+        stringTest = 'CasoPrueba#&'
+        stringGood = 'HolaSoyOggs@22@@'
+        result = tempLogin.encript(stringGood)
+        boolR = tempLogin.check_password(result, stringTest)
         self.assertFalse(boolR)
 
     # Test 38: Se genera un hash valido y se compara con otro password invalido de 8 espacios vacios
     def test_38CPHashValid8SpacesInvalid(self):
         tempLogin = clsLogin() 
-        stringProbar = '        '
-        stringBueno = 'HolaSoyOggs@22@@'
-        resultado = tempLogin.encript(stringBueno)
-        boolR = tempLogin.check_password(resultado, stringProbar)
+        stringTest = '        '
+        stringGood = 'HolaSoyOggs@22@@'
+        result = tempLogin.encript(stringGood)
+        boolR = tempLogin.check_password(result, stringTest)
         self.assertFalse(boolR)
         
     # Test 39: Se genera un hash valido y se compara con otro password invalido con un caracter vacio en el medio    
     def test_39CPHashValidAnInterspaceInvalid(self):
         tempLogin = clsLogin() 
-        stringProbar = '353t Y%%##'
-        stringBueno = 'HolaSoyOggs@22@@'
-        resultado = tempLogin.encript(stringBueno)
-        boolR = tempLogin.check_password(resultado, stringProbar)
+        stringTest = '353t Y%%##'
+        stringGood = 'HolaSoyOggs@22@@'
+        result = tempLogin.encript(stringGood)
+        boolR = tempLogin.check_password(result, stringTest)
         self.assertFalse(boolR)    
     
     
@@ -392,114 +394,114 @@ class TestLogin(unittest.TestCase):
     # Test 40: Se genera un hash y se compara con un Password invalido por tener 7 caracteres.
     def test_40CPString7Invalid(self):
         tempLogin = clsLogin()
-        stringProbar = 'Soyn7+@'
-        boolR = tempLogin.check_password(None, stringProbar)
+        stringTest = 'Soyn7+@'
+        boolR = tempLogin.check_password(None, stringTest)
         self.assertFalse(boolR)
      
      # Test 20:Se genera un hash invalido y se compara con un  Password invalido de 17 caracteres
     def test_41CPString17Invalid(self):
         tempLogin = clsLogin()
-        stringProbar = 'heChoPor0r1&3Dw4#'
-        boolR = tempLogin.check_password(None, stringProbar)
+        stringTest = 'heChoPor0r1&3Dw4#'
+        boolR = tempLogin.check_password(None, stringTest)
         self.assertFalse(boolR)
         
     # Test 21:Se genera un hash invalido y se compara con un  Password invalido por tener solo minusculas
     def test_42CPOnlyLettersInvalid(self):
         tempLogin = clsLogin()
-        stringProbar = 'hoyesjueves'
-        boolR = tempLogin.check_password(None, stringProbar)
+        stringTest = 'hoyesjueves'
+        boolR = tempLogin.check_password(None, stringTest)
         self.assertFalse(boolR)
         
     # Test 22: Se genera un hash invalido y se compara con un  Password invalido por tener solo mayusculas
     def test_43CPOnlyLettersCInvalid(self):
         tempLogin = clsLogin()
-        stringProbar = 'HOYESJUEVES'
-        boolR = tempLogin.check_password(None, stringProbar)
+        stringTest = 'HOYESJUEVES'
+        boolR = tempLogin.check_password(None, stringTest)
         self.assertFalse(boolR)
         
     # Test 44: Se genera un hash invalido y se compara con un  Password invalido por tener solo numeros.
     def test_44CPOnlyNumbersInvalid(self):
         tempLogin = clsLogin()
-        stringProbar = '1234567890'
-        boolR = tempLogin.check_password(None, stringProbar)
+        stringTest = '1234567890'
+        boolR = tempLogin.check_password(None, stringTest)
         self.assertFalse(boolR)
         
     # Test 45: Se genera un hash invalido y se compara con un  Password invalido por tener solo caracteres
     def test_45CPOnlyCharactersInvalid(self):
         tempLogin = clsLogin()
-        stringProbar = '+@#$%&%&#'
-        boolR = tempLogin.check_password(None, stringProbar)
+        stringTest = '+@#$%&%&#'
+        boolR = tempLogin.check_password(None, stringTest)
         self.assertFalse(boolR)
         
      # Test 46: Se genera un hash invalido y se compara con un  Password invalido por tener solo caracter vacio
     def test_46CPtEmptyInvalid(self):
         tempLogin =  clsLogin()
-        stringProbar = ''
-        boolR = tempLogin.check_password(None, stringProbar)
+        stringTest = ''
+        boolR = tempLogin.check_password(None, stringTest)
         self.assertFalse(boolR)
         
     # Test 47: Se genera un hash invalido y se compara con un  Password invalido por tener solo caracteres y numeros
     def test_47CPStringSCNumberInvalid(self):
         tempLogin = clsLogin()
-        stringProbar = '@@@#&%123'
-        boolR = tempLogin.check_password(None, stringProbar)
+        stringTest = '@@@#&%123'
+        boolR = tempLogin.check_password(None, stringTest)
         self.assertFalse(boolR)
         
     # Test 48: Se genera un hash invalido y se compara con un Password invalido por tener solo letras y numeros
     def test_48CPLettersCLNumberInvalid(self):
         tempLogin = clsLogin()
-        stringProbar = 'Aqui3st4mos'
-        boolR = tempLogin.check_password(None, stringProbar)
+        stringTest = 'Aqui3st4mos'
+        boolR = tempLogin.check_password(None, stringTest)
         self.assertFalse(boolR)
         
     # Test 49:Se genera un hash invalido y se compara con un  Password invalido por tener solo letras y numeros
     def test_49CPtStringCLLettersInvalid(self):
         tempLogin = clsLogin() 
-        stringProbar = 'CasoPrueba#&'
-        boolR = tempLogin.check_password(None, stringProbar)
+        stringTest = 'CasoPrueba#&'
+        boolR = tempLogin.check_password(None, stringTest)
         self.assertFalse(boolR)
         
     # Test 50: Se genera un hash invalido y se compara con un  Password invalido por tener solo 8 caracteres vacios    
     def test_50CP8SpacesInvalid(self):
         tempLogin = clsLogin() 
-        stringProbar = '        '
-        boolR = tempLogin.check_password(None, stringProbar)
+        stringTest = '        '
+        boolR = tempLogin.check_password(None, stringTest)
         self.assertFalse(boolR)
         
     # Test 51: Se genera un hash invalido y se compara con un Password invalido por tener un caracter vacio en el medio    
     def test_52CPAnInterspaceInvalid(self):
         tempLogin = clsLogin() 
-        stringProbar = '353t Y%%##'
-        boolR = tempLogin.check_password(None, stringProbar)
+        stringTest = '353t Y%%##'
+        boolR = tempLogin.check_password(None, stringTest)
         self.assertFalse(boolR)
         
     # Test 53: Se genera un hash invalido y se compara con un Password valido de 16 caracteres
     def test_53CPString16Valid(self):
         tempLogin = clsLogin()
-        stringProbar = 'HolaSoyOggs@22!!'
-        boolR = tempLogin.check_password(None, stringProbar)
+        stringTest = 'HolaSoyOggs@22!!'
+        boolR = tempLogin.check_password(None, stringTest)
         self.assertFalse(boolR)
         
     # Test 54: Se genera un hash invalido y se compara con un  Password valido de 14 caracteres    
     def test_54CPString14Valid(self):
         tempLogin = clsLogin()
-        stringProbar = 'HolaSoyOggs@22@@'
-        resultado = tempLogin.encript(stringProbar)
-        self.assertNotEqual(resultado, None)
+        stringTest = 'HolaSoyOggs@22@@'
+        result = tempLogin.encript(stringTest)
+        self.assertNotEqual(result, None)
       
     #Test 55: Se genera un hash invalido y se compara con un  Password valido de 9 caracteres
     def test_55CPString9Valid(self):
         tempLogin = clsLogin()
-        stringProbar = 'Proband9@'
-        resultado = tempLogin.encript(stringProbar)
-        self.assertNotEqual(resultado, None)
+        stringTest = 'Proband9@'
+        result = tempLogin.encript(stringTest)
+        self.assertNotEqual(result, None)
     
     
     # Test 56: Se genera un hash invalido y se compara con un  Password valido de 8 caracteres.
     def test_56CPString8Valid(self):
         tempLogin = clsLogin()
-        stringProbar = 'Hoyes2@@'
-        resultado = tempLogin.encript(stringProbar)
-        self.assertNotEqual(resultado, None)
+        stringTest = 'Hoyes2@@'
+        result = tempLogin.encript(stringTest)
+        self.assertNotEqual(result, None)
         
     #.-------------------------------------------------------------------.  

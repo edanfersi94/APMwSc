@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-. 
+
 """
     UNIVERSIDAD SIMON BOLIVAR
     Departamento de Computacion y Tecnologia de la Informacion.
@@ -5,80 +7,66 @@
     Abril - Julio 2015
 
     AUTORES:
-        Nicolas Manan.      Carnet: 06-39883
-        Edward Fernandez.   Carnet: 10-11121
+        Equipo SoftDev
 
     DESCRIPCION: 
 		
 """
 #-------------------------------------------------------------------------------
 
-# Librerias a utilizar.
+# Librerias a importar.
 
-# Configuracion de la base de datos a utilizar.
-import settings
-
-from sqlalchemy.engine.url import URL
-from sqlalchemy.orm import relationship, backref
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
+from flask					import Flask
+from flask.ext.migrate		import Migrate, MigrateCommand
+from flask.ext.sqalchemy	import SQLAlchemy
+from flask.ext.script		import Manager
+from sqalchemy.sql.schema	import CheckConstraint
 
 #-------------------------------------------------------------------------------
 
-db = declarative_base()
+# Construcción de la base de datos.
+
+SQLALCHEMY_DATABASE_URI =
+	"postgresql://BMO:@localhost/newAPMwSc"
+	# Estructura para realizar la conexión con la base de datos:
+	# "postgresql://yourusername:yourpassword@localhost/yournewdb"
+
+db_dir = 'postgresql+psycopg2://BMO:@localhost/newAPMwSc'
+# Estructrua:
+# 'postgresql+psycopg2://user:password@localhost/the_database' 	
+
+# Instancia de la aplicación a utilizar.
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = db_dir
+app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+
+
+# Instancia de la base de datos a usar.
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+manager = Manager(app)
+manager.add_command('db', MigrateCommand)
 
 #-------------------------------------------------------------------------------
 
 # Tablas de la base de datos a definir.
 
-# Tabla Usuario.
-class User(db):
-	__tablename__ = 'user'
-	fullname = Column(String(50), nullable = False)
-	username = Column(String(16), primary_key = True)
-	password = Column(String(16), nullable = False)
-	email = Column(String(30), unique = True)
-	iddpt = Column(Integer, ForeignKey('dpt.iddpt'), nullable = False)
-	idrole = Column(Integer, ForeignKey('role.idrole'), unique = True)
-	
-	def __init__(self,fullname, username, password, email, iddpt, idrole):
-		self.fullname = fullname
-		self.username = username
-		self.password = password
-		self.email = email
-		self.iddpt = iddpt
-		self.idrole = idrole
+# Tabla Acciones.
+class Acciones(db.Model):
+	__tablename__ = 'acciones'
+	idacciones 		= db.Column(Integer, primary_key = True)
+	descripAcciones = db.Column(String(50), nullable = False)
+	#pilas = relationship('Pila', backref = 'acciones', cascade="all, delete, delete-orphan")
 
-# Tabla Departamento.
-class Dpt(db):
-	__tablename__ = 'dpt'
-	iddpt = Column(Integer, primary_key = True)
-	namedpt = Column(String(50), unique = True)
-	users = relationship('User', backref = 'dpt', cascade="all, delete, delete-orphan")
-
-	def __init__(self, iddpt, namedpt):
-		self.iddpt = iddpt
-		self.namedpt = namedpt
-
-# Tabla Role.
-class Role(db):
-	__tablename__ = 'role'
-	idrole = Column(Integer, primary_key = True)
-	namerole = Column(String(50), unique = True)
-	users = relationship('User', backref = 'role', cascade="all, delete, delete-orphan")
-
-	def __init__(self, idrole, namerole):
-		self.idrole = idrole
-		self.namerole = namerole
+	def __init__(self, idacciones, descripAcciones):
+		# Constructor del modelo Acciones.
+		self.idacciones 	 = idacciones
+		self.descripAcciones = descripAcciones
 		
 #-------------------------------------------------------------------------------
 
-# Se crea el motor que almacenara los datos en el directorio local.
-engine = create_engine(URL(**settings.DATABASE))	
+# Se crean las tablas de la base de datos.
+db.create_all()
 
-#Se eliminnan las tablas previamente definidas
-db.metadata.drop_all(engine)
-
-# Se crean todas las tablas definidas en el motor antes construidos.
-db.metadata.create_all(engine)
-
+#-------------------------------------------------------------------------------
